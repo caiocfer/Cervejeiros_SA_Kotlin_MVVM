@@ -1,4 +1,6 @@
 package com.ferreiracaio.punkapimvvm.data.response
 
-class Beer {
-}
+data class Beer(
+    val name:String,
+    val description: String
+)
