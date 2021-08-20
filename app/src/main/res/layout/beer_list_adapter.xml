@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp">
+    android:padding="8dp"
+    android:layout_margin="4dp"
+    android:background="@drawable/bg_beer_list">
 
     <ImageView
         android:id="@+id/imageBeerList"
@@ -17,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:gravity="center_vertical"
         android:layout_marginLeft="8dp">
 
         <TextView
@@ -25,12 +28,14 @@
             android:layout_height="wrap_content"
             android:textSize="24sp"
             android:textStyle="bold"
+            android:textColor="@color/black"
             tools:text="Beer Name" />
 
         <TextView
             android:id="@+id/textBeerListDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             tools:text="Beer Description" />
     </LinearLayout>
 
