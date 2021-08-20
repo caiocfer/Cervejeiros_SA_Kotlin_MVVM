@@ -13,7 +13,8 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.beer_list_adapter.view.*
 
 class BeerListAdapter (
-    private val beers: List<BeerResponseItem>
+    private val beers: List<BeerResponseItem>,
+    val onItemCLickListener:((beer:BeerResponseItem)->Unit)
 ):RecyclerView.Adapter<BeerListAdapter.BeerListViewHolder> (){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BeerListViewHolder {
@@ -36,6 +37,10 @@ class BeerListAdapter (
             textViewBeerListName.text = beerResponseItem.name
             textViewBeerListDescription.text = beerResponseItem.tagline
             Picasso.get().load(beerResponseItem.imageUrl).into(itemView.imageBeerList)
+
+            itemView.setOnClickListener {
+                onItemCLickListener.invoke(beerResponseItem)
+            }
         }
 
     }
