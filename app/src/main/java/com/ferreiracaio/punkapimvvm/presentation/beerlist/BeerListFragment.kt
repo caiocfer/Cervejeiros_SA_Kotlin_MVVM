@@ -1,20 +1,12 @@
 package com.ferreiracaio.punkapimvvm.presentation.beerlist
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.view.isGone
-import androidx.core.view.isVisible
-import androidx.lifecycle.Observer
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ferreiracaio.punkapimvvm.R
-import kotlinx.android.synthetic.main.beer_list_adapter.*
 import kotlinx.android.synthetic.main.beer_list_fragment.*
 
 class BeerListFragment : Fragment(R.layout.beer_list_fragment) {
@@ -46,6 +38,15 @@ class BeerListFragment : Fragment(R.layout.beer_list_fragment) {
 //
 //        })
 
+//        viewModel.isLoading.observe(viewLifecycleOwner,{isLoading->
+//            if(isLoading){
+//                Log.d("TAG", "onViewCreated: $isLoading")
+//                progressBeerList.visibility = View.VISIBLE
+//            }else{
+//                progressBeerList.visibility = View.GONE
+//            }
+//        })
+
         viewModel.beersLiveData.observe(viewLifecycleOwner,{beerList->
             beerList.let {
                 adapter.notifyItemRangeInserted(viewModel.beerList.size,25)
@@ -53,30 +54,21 @@ class BeerListFragment : Fragment(R.layout.beer_list_fragment) {
         })
         viewModel.getBeers()
 
-
-
-
         recyclerBeerList.addOnScrollListener(object : RecyclerView.OnScrollListener(){
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-//                if(!recyclerView.canScrollVertically(1)){
-                if(linearLayoutManager.findLastCompletelyVisibleItemPosition() == viewModel.beerList.size-1){
-                    page += 1
-                    viewModel.loadNextPage(page)
-                    adapter.notifyItemRangeInserted(viewModel.beerList.size,25)
-                }
+                if(dy>0){
+                    val visibleItemCount = linearLayoutManager.childCount;
+                    val totalItemCount = linearLayoutManager.itemCount;
+                    val pastVisibleItems = linearLayoutManager.findFirstVisibleItemPosition();
 
+                    if((visibleItemCount+pastVisibleItems) >= totalItemCount && page<=13){
+                            page += 1
+                            viewModel.loadNextPage(page)
+                            adapter.notifyItemRangeInserted(viewModel.beerList.size,25)
+                    }
+                }
             }
         })
-
-
-
-
     }
-
-
-
-
-
-
 }
