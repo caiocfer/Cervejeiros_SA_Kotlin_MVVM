@@ -3,10 +3,14 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-android-extensions'
     id 'kotlin-kapt'
-
 }
 
 android {
+
+    androidExtensions {
+        experimental = true
+    }
+
     compileSdk 31
 
     defaultConfig {

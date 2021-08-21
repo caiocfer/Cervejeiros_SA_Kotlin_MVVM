@@ -1,5 +1,7 @@
 package com.ferreiracaio.punkapimvvm.presentation.beerlist
 
+import android.app.Activity
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,12 +11,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ferreiracaio.punkapimvvm.R
 import com.ferreiracaio.punkapimvvm.data.response.BeerResponse
 import com.ferreiracaio.punkapimvvm.data.response.BeerResponseItem
+import com.ferreiracaio.punkapimvvm.presentation.beerdetails.BeerDetailsActivity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.beer_list_adapter.view.*
 
 class BeerListAdapter (
-    private val beers: List<BeerResponseItem>,
-    val onItemCLickListener:((beer:BeerResponseItem)->Unit)
+    private val beers: List<BeerResponseItem>
 ):RecyclerView.Adapter<BeerListAdapter.BeerListViewHolder> (){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BeerListViewHolder {
@@ -24,6 +26,8 @@ class BeerListAdapter (
 
     override fun onBindViewHolder(holder: BeerListViewHolder, position: Int) {
         holder.bindView(beers[position])
+
+
     }
 
     override fun getItemCount() = beers.size
@@ -39,8 +43,14 @@ class BeerListAdapter (
             Picasso.get().load(beerResponseItem.imageUrl).into(itemView.imageBeerList)
 
             itemView.setOnClickListener {
-                onItemCLickListener.invoke(beerResponseItem)
+                val activity = itemView.context as Activity
+                val intent:Intent = Intent(activity,BeerDetailsActivity::class.java)
+                intent.putExtra("BEER_DETAILS", beers[position])
+                activity.startActivity(intent)
             }
+
+
+
         }
 
     }

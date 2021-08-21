@@ -2,6 +2,7 @@ package com.ferreiracaio.punkapimvvm.data.response
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class BeerResponseItem(
     @SerializedName("abv")
@@ -46,4 +47,4 @@ data class BeerResponseItem(
     val targetOg: Double,
     @SerializedName("volume")
     val volume: Volume
-)
+):Serializable

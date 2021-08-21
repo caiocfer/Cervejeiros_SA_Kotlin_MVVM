@@ -13,7 +13,6 @@ import kotlinx.android.synthetic.main.beer_list_fragment.*
 
 class BeerListFragment : Fragment(R.layout.beer_list_fragment) {
 
-
     private lateinit var viewModel: BeerListViewModel
     var page:Int=1
 
@@ -21,10 +20,7 @@ class BeerListFragment : Fragment(R.layout.beer_list_fragment) {
         super.onViewCreated(view,savedInstanceState)
         viewModel = ViewModelProvider(this).get(BeerListViewModel::class.java)
         val recyclerView = recyclerBeerList
-        val adapter = BeerListAdapter(viewModel.beerList){
-            val intent = Intent(requireContext(),BeerDetailsActivity::class.java)
-            startActivity(intent)
-        }
+        val adapter = BeerListAdapter(viewModel.beerList)
 
         val linearLayoutManager: LinearLayoutManager = LinearLayoutManager(requireContext(),RecyclerView.VERTICAL,false)
         recyclerView.layoutManager = linearLayoutManager
@@ -70,9 +66,12 @@ class BeerListFragment : Fragment(R.layout.beer_list_fragment) {
                     val pastVisibleItems = linearLayoutManager.findFirstVisibleItemPosition();
 
                     if((visibleItemCount+pastVisibleItems) >= totalItemCount && page<=13){
-                        page += 1
-                        viewModel.loadNextPage(page)
-                        adapter.notifyItemRangeInserted(viewModel.beerList.size,25)
+                        recyclerView.post {
+                            page += 1
+                            viewModel.loadNextPage(page)
+                            adapter.notifyItemRangeInserted(viewModel.beerList.size,25)
+                        }
+
                     }
                 }
             }

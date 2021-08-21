@@ -2,6 +2,7 @@ package com.ferreiracaio.punkapimvvm.data.response
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Method(
     @SerializedName("fermentation")
@@ -10,4 +11,4 @@ data class Method(
     val mashTemp: List<MashTemp>,
     @SerializedName("twist")
     val twist: String
-)
+): Serializable

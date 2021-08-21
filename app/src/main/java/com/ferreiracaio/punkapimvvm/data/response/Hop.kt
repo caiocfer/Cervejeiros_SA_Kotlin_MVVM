@@ -2,6 +2,7 @@ package com.ferreiracaio.punkapimvvm.data.response
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Hop(
     @SerializedName("add")
@@ -12,4 +13,4 @@ data class Hop(
     val attribute: String,
     @SerializedName("name")
     val name: String
-)
+):Serializable
