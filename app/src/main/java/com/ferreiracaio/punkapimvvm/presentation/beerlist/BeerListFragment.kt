@@ -3,6 +3,7 @@ package com.ferreiracaio.punkapimvvm.presentation.beerlist
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -49,5 +50,14 @@ class BeerListFragment : Fragment(R.layout.beer_list_fragment) {
                 }
             }
         })
+
+        viewModel.isLoading.observe(viewLifecycleOwner,{isLoading->
+            if(isLoading){
+                progressBeerList.visibility = View.VISIBLE
+            }else{
+                progressBeerList.visibility = View.GONE
+            }
+        })
+
     }
 }

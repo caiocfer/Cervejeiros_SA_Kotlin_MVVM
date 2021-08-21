@@ -2,6 +2,7 @@ package com.ferreiracaio.punkapimvvm.presentation.beerlist
 
 import android.app.Activity
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,8 +13,10 @@ import com.ferreiracaio.punkapimvvm.R
 import com.ferreiracaio.punkapimvvm.data.response.BeerResponse
 import com.ferreiracaio.punkapimvvm.data.response.BeerResponseItem
 import com.ferreiracaio.punkapimvvm.presentation.beerdetails.BeerDetailsActivity
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.beer_list_adapter.view.*
+import java.lang.Exception
 
 class BeerListAdapter (
     private val beers: List<BeerResponseItem>
@@ -40,7 +43,20 @@ class BeerListAdapter (
         fun bindView(beerResponseItem: BeerResponseItem){
             textViewBeerListName.text = beerResponseItem.name
             textViewBeerListDescription.text = beerResponseItem.tagline
-            Picasso.get().load(beerResponseItem.imageUrl).into(itemView.imageBeerList)
+            Picasso.get()
+                .load(beerResponseItem.imageUrl)
+                .noFade()
+                .into(itemView.imageBeerList,object : Callback{
+                    override fun onSuccess() {
+                        itemView.imageProgress.visibility = View.GONE
+                    }
+
+                    override fun onError(e: Exception?) {
+                        Log.e("Error", "onError: ${e?.message}", )
+                    }
+
+                })
+
 
             itemView.setOnClickListener {
                 val activity = itemView.context as Activity
