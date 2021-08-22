@@ -17,6 +17,7 @@ class BeerListViewModel : ViewModel() {
     val isLoading = MutableLiveData<Boolean>()
 
     fun getBeers() {
+        beerList.clear()
         ApiService.service.getBeers().enqueue(object : Callback<List<BeerResponseItem>>{
             override fun onResponse(call: Call<List<BeerResponseItem>>, response: Response<List<BeerResponseItem>>) {
                 response.body()?.let {
@@ -54,8 +55,31 @@ class BeerListViewModel : ViewModel() {
         })
     }
 
-    fun getIsLoading(): LiveData<Boolean> {
-        return getIsLoading()
+    fun getBeerSearch(beerName:String){
+        beerList.clear()
+        isLoading.value = true
+        ApiService.service.getBeerByName(beerName).enqueue(object: Callback<List<BeerResponseItem>>{
+            override fun onResponse(
+                call: Call<List<BeerResponseItem>>,
+                response: Response<List<BeerResponseItem>>
+            ) {
+                response.body().let {
+                    for(results in response.body()!!){
+                        beerList.add(results)
+                    }
+                }
+
+                beersLiveData.value = beerList
+                isLoading.value = false
+
+            }
+
+            override fun onFailure(call: Call<List<BeerResponseItem>>, t: Throwable) {
+                Log.e("Failure", "onFailure: ${t.stackTrace}", )
+            }
+
+        })
     }
+
 
 }

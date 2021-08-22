@@ -1,7 +1,9 @@
 package com.ferreiracaio.punkapimvvm.presentation.beerlist
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
@@ -32,6 +34,33 @@ class BeerListFragment : Fragment(R.layout.beer_list_fragment) {
         })
         viewModel.getBeers()
 
+
+        searchBeer.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (query != null) {
+                    viewModel.getBeerSearch(query)
+                    adapter.notifyDataSetChanged()
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+
+
+
+        })
+
+        searchBeer.setOnCloseListener(object: SearchView.OnCloseListener{
+            override fun onClose(): Boolean {
+                viewModel.getBeers()
+                adapter.notifyDataSetChanged()
+                return true
+            }
+
+        })
+
         recyclerBeerList.addOnScrollListener(object : RecyclerView.OnScrollListener(){
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -60,4 +89,6 @@ class BeerListFragment : Fragment(R.layout.beer_list_fragment) {
         })
 
     }
+
+
 }
