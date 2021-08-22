@@ -30,10 +30,12 @@ class BeerListFragment : Fragment(R.layout.beer_list_fragment) {
         }
 
 
-
+        observerViewFlipper()
         observeLoadingState()
         observeBeerList()
         viewModel.getBeers()
+
+
 
         searchBeer.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -90,6 +92,17 @@ class BeerListFragment : Fragment(R.layout.beer_list_fragment) {
                 progressBeerList.visibility = View.VISIBLE
             }else{
                 progressBeerList.visibility = View.GONE
+            }
+        })
+    }
+
+    private fun observerViewFlipper(){
+        viewModel.viewFlipperLiveData.observe(viewLifecycleOwner,{
+            it?.let {viewFlipper->
+                viewFlipperBeers.displayedChild = viewFlipper.first
+                viewFlipper.second?.let {message->
+                    textBeerListErrorMessage.text = getString(message)
+                }
             }
         })
     }
