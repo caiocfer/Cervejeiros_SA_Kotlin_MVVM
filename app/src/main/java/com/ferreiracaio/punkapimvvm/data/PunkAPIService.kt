@@ -13,4 +13,9 @@ interface PunkAPIService {
     fun loadPage(
         @Query("page") page:Int
     ):Call<List<BeerResponseItem>>
+
+    @GET("beers")
+    fun getBeerByName(
+        @Query("beer_name") beerName:String
+    ):Call<List<BeerResponseItem>>
 }

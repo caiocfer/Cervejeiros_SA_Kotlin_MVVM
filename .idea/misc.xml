@@ -6,8 +6,8 @@
         <entry key="app/src/main/res/drawable/bg_beer_list.xml" value="0.1925925925925926" />
         <entry key="app/src/main/res/layout/activity_beer_details.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.18385416666666668" />
-        <entry key="app/src/main/res/layout/beer_list_adapter.xml" value="0.22" />
-        <entry key="app/src/main/res/layout/beer_list_fragment.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/beer_list_adapter.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/beer_list_fragment.xml" value="0.33" />
       </map>
     </option>
   </component>
