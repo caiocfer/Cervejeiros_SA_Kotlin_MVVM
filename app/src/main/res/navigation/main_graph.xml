@@ -9,5 +9,23 @@
         android:id="@+id/beerListFragment"
         android:name="com.ferreiracaio.punkapimvvm.presentation.beerlist.BeerListFragment"
         android:label="beer_list_fragment"
-        tools:layout="@layout/beer_list_fragment" />
+        tools:layout="@layout/beer_list_fragment" >
+        <action
+            android:id="@+id/action_beerListFragment_to_mainActivity"
+            app:destination="@id/mainActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/beerFavoriteListFragment"
+        android:name="com.ferreiracaio.punkapimvvm.presentation.beerfavoritelist.BeerFavoriteListFragment"
+        android:label="beer_favorite_list_fragment"
+        tools:layout="@layout/beer_favorite_list_fragment" >
+        <action
+            android:id="@+id/action_beerFavoriteListFragment_to_mainActivity"
+            app:destination="@id/mainActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.ferreiracaio.punkapimvvm.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
 </navigation>

@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item android:id="@+id/beerListFragment"
+        android:enabled="true"
+        android:title="BeerList"
+        android:icon="@drawable/ic_home"/>
+
+    <item android:id="@+id/beerFavoriteListFragment"
+        android:enabled="true"
+        android:title="beerFavoriteList"
+        android:icon="@drawable/ic_favorite"/>
+
+
 </menu>

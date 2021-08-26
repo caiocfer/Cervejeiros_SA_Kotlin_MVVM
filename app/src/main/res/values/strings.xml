@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">PunkAPIMVVM</string>
     <string name="error_message">Error loading</string>
+    <string name="beer_res">beer.json</string>
 
 
 </resources>
