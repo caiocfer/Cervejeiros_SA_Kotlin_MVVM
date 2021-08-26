@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.beer_favorite_list_fragment.*
 class BeerFavoriteListFragment : Fragment(R.layout.beer_favorite_list_fragment) {
 
 //    private lateinit var viewModel: BeerFavoriteListViewModel
-    private lateinit var beerAdapter:BeerListAdapter
+
 
     private val viewModel: BeerFavoriteListViewModel by viewModels {
         object: ViewModelProvider.Factory{
@@ -39,6 +39,7 @@ class BeerFavoriteListFragment : Fragment(R.layout.beer_favorite_list_fragment) 
         val linearLayoutManager: LinearLayoutManager = LinearLayoutManager(requireContext(),
             RecyclerView.VERTICAL,false)
 
+        val beerAdapter:BeerListAdapter
         viewModel.getBeersFromDatabase()
         viewModel.allBeersEvent.observe(viewLifecycleOwner){beers->
             val beerListAdapter = BeerListAdapter(beers)
