@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         navController = Navigation.findNavController(this,R.id.fragmentContainerView)
         bottomNavigationView.setupWithNavController(navController)
+        bottomNavigationView.itemRippleColor = null
         startFragment()
 
 

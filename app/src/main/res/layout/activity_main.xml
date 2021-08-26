@@ -28,5 +28,5 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_menu"
-        app:labelVisibilityMode="auto"/>
+        app:labelVisibilityMode="unlabeled"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
