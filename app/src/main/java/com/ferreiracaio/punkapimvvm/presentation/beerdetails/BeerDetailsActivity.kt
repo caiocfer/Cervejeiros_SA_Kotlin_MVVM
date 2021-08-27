@@ -1,6 +1,7 @@
 package com.ferreiracaio.punkapimvvm.presentation.beerdetails
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
@@ -44,13 +45,30 @@ class BeerDetailsActivity : AppCompatActivity() {
         beerDetailsMalt.text = viewModel.getMalt(beer)
         beerDetailsHops.text = viewModel.getHops(beer)
         beerDetailsYeast.text = viewModel.getYeast(beer)
-
-        button.setOnClickListener {
-            viewModel.insertBeer(beer)
-        }
-
-
-
+        observeFavorite(beer)
 
     }
+
+    private fun observeFavorite(beer: BeerResponseItem){
+        viewModel.isFavoriteLiveData.value = viewModel.isFavorite(beer)
+
+        viewModel.isFavoriteLiveData.observe(this,{isFavorite->
+            if(isFavorite){
+                buttonFavorite.text = "Delete from favorite"
+                buttonFavorite.setOnClickListener {
+                    viewModel.deleterBeer(beer)
+                    viewModel.isFavoriteLiveData.value = false
+
+                }
+            }else{
+                buttonFavorite.text = "Add to favorite"
+                buttonFavorite.setOnClickListener {
+                    viewModel.insertBeer(beer)
+                    viewModel.isFavoriteLiveData.value = true
+                }
+            }
+        })
+    }
+
+
 }

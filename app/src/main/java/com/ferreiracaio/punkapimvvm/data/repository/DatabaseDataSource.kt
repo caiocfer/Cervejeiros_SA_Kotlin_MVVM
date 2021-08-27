@@ -10,8 +10,16 @@ class DatabaseDataSource(
         return beerDAO.insertIntoDatabase(beerResponseItem)
     }
 
+    override fun getBeerById(id: Int): BeerResponseItem {
+        return beerDAO.getBeerById(id)
+    }
+
     override suspend fun getAllBeersFromDatabase(): List<BeerResponseItem> {
         return beerDAO.getAll()
+    }
+
+    override suspend fun deleteBeer(id: Int) {
+        return beerDAO.deleteFromDatabase(id)
     }
 
 

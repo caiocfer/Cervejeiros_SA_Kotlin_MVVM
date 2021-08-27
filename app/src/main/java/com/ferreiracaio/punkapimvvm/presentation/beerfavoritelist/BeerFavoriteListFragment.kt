@@ -1,7 +1,6 @@
 package com.ferreiracaio.punkapimvvm.presentation.beerfavoritelist
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -14,12 +13,11 @@ import com.ferreiracaio.punkapimvvm.data.db.BeerDAO
 import com.ferreiracaio.punkapimvvm.data.db.BeerDatabase
 import com.ferreiracaio.punkapimvvm.data.repository.BeerRepository
 import com.ferreiracaio.punkapimvvm.data.repository.DatabaseDataSource
+import com.ferreiracaio.punkapimvvm.data.response.BeerResponseItem
 import com.ferreiracaio.punkapimvvm.presentation.beerlist.BeerListAdapter
 import kotlinx.android.synthetic.main.beer_favorite_list_fragment.*
 
 class BeerFavoriteListFragment : Fragment(R.layout.beer_favorite_list_fragment) {
-
-//    private lateinit var viewModel: BeerFavoriteListViewModel
 
 
     private val viewModel: BeerFavoriteListViewModel by viewModels {
@@ -35,23 +33,18 @@ class BeerFavoriteListFragment : Fragment(R.layout.beer_favorite_list_fragment) 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        viewModel = ViewModelProvider(this).get(BeerFavoriteListViewModel::class.java)
         val linearLayoutManager: LinearLayoutManager = LinearLayoutManager(requireContext(),
             RecyclerView.VERTICAL,false)
 
-        val beerAdapter:BeerListAdapter
         viewModel.getBeersFromDatabase()
         viewModel.allBeersEvent.observe(viewLifecycleOwner){beers->
-            val beerListAdapter = BeerListAdapter(beers)
-            with(recyclerFavoriteBeerList){
-                layoutManager = linearLayoutManager
+            recyclerFavoriteBeerList.apply {
                 setHasFixedSize(true)
-                adapter = beerListAdapter
+                layoutManager = linearLayoutManager
+                adapter = BeerListAdapter(beers)
             }
-
-
-
         }
+
     }
 
 
