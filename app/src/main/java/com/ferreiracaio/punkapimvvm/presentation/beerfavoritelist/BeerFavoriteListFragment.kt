@@ -18,7 +18,7 @@ import com.ferreiracaio.punkapimvvm.presentation.beerlist.BeerListAdapter
 import kotlinx.android.synthetic.main.beer_favorite_list_fragment.*
 
 class BeerFavoriteListFragment : Fragment(R.layout.beer_favorite_list_fragment) {
-
+    private lateinit var beerListAdapter: BeerListAdapter
 
     private val viewModel: BeerFavoriteListViewModel by viewModels {
         object: ViewModelProvider.Factory{
@@ -45,6 +45,11 @@ class BeerFavoriteListFragment : Fragment(R.layout.beer_favorite_list_fragment) 
             }
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getBeersFromDatabase()
     }
 
 
